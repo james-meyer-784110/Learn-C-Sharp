@@ -24,6 +24,18 @@ namespace CliMathApp
             return r;
         }
 
+        public static T[] subArray(T[] array, int start, int end)
+        {
+            T[] subArray = new T[end - start];
+
+            for (int i = start; i < end; i++)
+            {
+                subArray[i] = array[i];
+            }
+
+            return subArray;
+        }
+
         public static void Main(string[] args)
         {
             if (args.Length < 3)
