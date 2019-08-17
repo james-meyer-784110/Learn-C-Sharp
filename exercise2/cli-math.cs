@@ -9,7 +9,7 @@ namespace CliMathApp
             double sum = 0;
             for (int i = 0; i < n.Length; i++)
             {
-                sum += n;
+                sum += n[i];
             }
             return sum;
         }
@@ -19,12 +19,13 @@ namespace CliMathApp
             double r = 0;
             for (int i = 0; i < n.Length; i++)
             {
-                r -= n;
+                r -= n[i];
             }
             return r;
         }
 
-        public static T[] subArray(T[] array, int start, int end)
+        // TODO: this method has multiple points of failure
+        public static T[] subArray<T>(T[] array, int start, int end)
         {
             T[] subArray = new T[end - start];
 
@@ -36,20 +37,33 @@ namespace CliMathApp
             return subArray;
         }
 
+        // TODO: this method can fail on parsing
+        public static double[] fromStrings(string[] nums){
+            double[] n = new double[nums.Length];
+
+            for(int i = 0; i < nums.Length; i++){
+                n[i] = Double.Parse(nums[i]);
+            }
+
+            return n;
+        }
+
         public static void Main(string[] args)
         {
             if (args.Length < 3)
             {
-                Console.Error("Insufficient arguments!");
+                Console.WriteLine("Insufficient arguments!");
             }
-
+            // collect the numbers
+            string[] nums = subArray<string>(args, 1, args.Length);
+            // various math functions
             if (args[0].Equals("add"))
             {
-
+                Console.WriteLine("{0}", add(fromStrings(nums)));    
             }
             else if (args[0].Equals("sub"))
             {
-
+                Console.WriteLine("{0}", sub(fromStrings(nums)));
             }
         }
     }
